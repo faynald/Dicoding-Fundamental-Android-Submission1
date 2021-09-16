@@ -1,22 +1,21 @@
 package com.farhanrv.myapplication;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.farhanrv.myapplication.databinding.ItemGithubUsersBinding;
 
 import java.util.ArrayList;
 
 public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.ListViewHolder> {
     private final ArrayList<GithubUsers> listGithubUsers;
     private OnItemClickCallback onItemClickCallback;
+
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
@@ -29,9 +28,9 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_github_users, parent, false);
-        return new ListViewHolder(view);
+        ItemGithubUsersBinding binding = ItemGithubUsersBinding.
+                inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new ListViewHolder(binding);
     }
 
     @Override
@@ -40,9 +39,9 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
         Glide.with(holder.itemView.getContext())
                 .load(githubUsers.getAvatar())
                 .apply(new RequestOptions().override(60,60))
-                .into(holder.imgPhoto);
-        holder.tvName.setText(githubUsers.getName());
-        holder.tvDetail.setText(githubUsers.getLocation());
+                .into(holder.binding.imgItemPhoto);
+        holder.binding.tvItemName.setText(githubUsers.getName());
+        holder.binding.tvItemDetail.setText(githubUsers.getLocation());
 
         holder.itemView.setOnClickListener(view -> onItemClickCallback.onItemClicked(listGithubUsers
                 .get(holder.getBindingAdapterPosition())));
@@ -54,13 +53,11 @@ public class GithubUsersAdapter extends RecyclerView.Adapter<GithubUsersAdapter.
     }
 
     public static class ListViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgPhoto;
-        TextView tvName, tvDetail;
-        public ListViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imgPhoto = itemView.findViewById(R.id.img_item_photo);
-            tvName = itemView.findViewById(R.id.tv_item_name);
-            tvDetail = itemView.findViewById(R.id.tv_item_detail);
+        ItemGithubUsersBinding binding;
+
+        public ListViewHolder(ItemGithubUsersBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 

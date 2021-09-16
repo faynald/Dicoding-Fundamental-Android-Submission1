@@ -1,34 +1,35 @@
 package com.farhanrv.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.farhanrv.myapplication.databinding.ActivityMainBinding;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView rvGithubUsers;
     private final ArrayList<GithubUsers> list = new ArrayList<>();
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        rvGithubUsers = findViewById(R.id.rv_github_users);
-        rvGithubUsers.setHasFixedSize(true);
+        binding.rvGithubUsers.setHasFixedSize(true);
 
         showRecyclerList();
     }
 
     private void showRecyclerList() {
-        rvGithubUsers.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvGithubUsers.setLayoutManager(new LinearLayoutManager(this));
         GithubUsersAdapter guAdapter = new GithubUsersAdapter(list);
-        rvGithubUsers.setAdapter(guAdapter);
+        binding.rvGithubUsers.setAdapter(guAdapter);
 
         final String[] githubUsername = getResources().getStringArray(R.array.username);
         final String[] githubName = getResources().getStringArray(R.array.name);

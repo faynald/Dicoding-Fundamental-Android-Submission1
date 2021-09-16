@@ -1,36 +1,32 @@
 package com.farhanrv.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.farhanrv.myapplication.databinding.ActivitySplashScreenBinding;
 
 public class SplashScreenActivity extends AppCompatActivity {
-
-    TextView tvSplashScreenTitle;
-    ImageView imgGithub;
     Animation fadeinAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        ActivitySplashScreenBinding binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Github Users's");
         }
 
-        tvSplashScreenTitle = findViewById(R.id.tv_submission_title);
-        imgGithub = findViewById(R.id.img_github);
         fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
-        tvSplashScreenTitle.setAnimation(fadeinAnim);
-        imgGithub.setAnimation(fadeinAnim);
+        binding.tvSubmissionTitle.setAnimation(fadeinAnim);
+        binding.imgGithub.setAnimation(fadeinAnim);
 
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);

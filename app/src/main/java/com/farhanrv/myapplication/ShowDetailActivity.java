@@ -1,47 +1,42 @@
 package com.farhanrv.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ShowDetailActivity extends AppCompatActivity {
+import com.farhanrv.myapplication.databinding.ActivityShowDetailBinding;
+
+public class ShowDetailActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String EXTRA_DATA = "extra_data";
-    TextView tvUsername, tvName, tvLocation, tvCompany, tvRepository, tvFollowers, tvFollowing;
-    ImageView imgPhoto;
+    private ActivityShowDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_detail);
+        binding = ActivityShowDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        tvUsername = findViewById(R.id.tv_detail_username);
-        tvName = findViewById(R.id.tv_detail_name);
-        tvLocation = findViewById(R.id.tv_detail_location);
-        tvCompany = findViewById(R.id.tv_detail_company);
-        imgPhoto = findViewById(R.id.img_detail_photo);
-        tvRepository = findViewById(R.id.tv_detail_repository);
-        tvFollowers = findViewById(R.id.tv_detail_followers);
-        tvFollowing = findViewById(R.id.tv_detail_following);
-
         GithubUsers guParcel = getIntent().getParcelableExtra(EXTRA_DATA);
         getSupportActionBar().setTitle(guParcel.getName());
 
-        tvUsername.setText(guParcel.getUsername());
-        tvName.setText(guParcel.getName());
-        tvLocation.setText(guParcel.getLocation());
-        tvCompany.setText(guParcel.getCompany());
-        imgPhoto.setImageResource(guParcel.getAvatar());
-        tvRepository.setText(String.valueOf(guParcel.getRepository()));
-        tvFollowers.setText(String.valueOf(guParcel.getFollowers()));
-        tvFollowing.setText(String.valueOf(guParcel.getFollowing()));
+        binding.tvDetailUsername.setText(guParcel.getUsername());
+        binding.tvDetailName.setText(guParcel.getName());
+        binding.tvDetailLocation.setText(guParcel.getLocation());
+        binding.tvDetailCompany.setText(guParcel.getCompany());
+        binding.imgDetailPhoto.setImageResource(guParcel.getAvatar());
+        binding.tvDetailRepository.setText(String.valueOf(guParcel.getRepository()));
+        binding.tvDetailFollowers.setText(String.valueOf(guParcel.getFollowers()));
+        binding.tvDetailFollowing.setText(String.valueOf(guParcel.getFollowing()));
+
+        binding.btnTest.setOnClickListener(this);
     }
 
     @Override
@@ -50,5 +45,12 @@ public class ShowDetailActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btn_test) {
+            Log.d("ShowDetailActivity", binding.tvDetailName.getText().toString());
+        }
     }
 }
