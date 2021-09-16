@@ -1,23 +1,20 @@
 package com.farhanrv.myapplication;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.farhanrv.myapplication.databinding.ActivityShowDetailBinding;
 
-public class ShowDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShowDetailActivity extends AppCompatActivity {
     public static final String EXTRA_DATA = "extra_data";
-    private ActivityShowDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityShowDetailBinding.inflate(getLayoutInflater());
+        ActivityShowDetailBinding binding = ActivityShowDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         if(getSupportActionBar() != null) {
@@ -35,8 +32,6 @@ public class ShowDetailActivity extends AppCompatActivity implements View.OnClic
         binding.tvDetailRepository.setText(String.valueOf(guParcel.getRepository()));
         binding.tvDetailFollowers.setText(String.valueOf(guParcel.getFollowers()));
         binding.tvDetailFollowing.setText(String.valueOf(guParcel.getFollowing()));
-
-        binding.btnTest.setOnClickListener(this);
     }
 
     @Override
@@ -45,12 +40,5 @@ public class ShowDetailActivity extends AppCompatActivity implements View.OnClic
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.btn_test) {
-            Log.d("ShowDetailActivity", binding.tvDetailName.getText().toString());
-        }
     }
 }

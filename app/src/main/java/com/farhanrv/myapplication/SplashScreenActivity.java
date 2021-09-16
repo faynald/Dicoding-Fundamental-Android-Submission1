@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.farhanrv.myapplication.databinding.ActivitySplashScreenBinding;
 
 public class SplashScreenActivity extends AppCompatActivity {
-    Animation fadeinAnim;
+    Animation fadeInAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,13 +20,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Github Users's");
+            getSupportActionBar().setTitle("Github User's");
         }
 
-        fadeinAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        fadeInAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
-        binding.tvSubmissionTitle.setAnimation(fadeinAnim);
-        binding.imgGithub.setAnimation(fadeinAnim);
+        binding.tvSubmissionTitle.setAnimation(fadeInAnim);
+        binding.imgGithub.setAnimation(fadeInAnim);
 
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
